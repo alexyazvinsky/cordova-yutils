@@ -1,0 +1,27 @@
+{
+  "name": "cordova-yutils",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "cordova-yutils",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova-yutils"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=7.0.0"
+    }
+  ],
+  "author": ")",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": ""
+}

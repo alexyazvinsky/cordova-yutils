@@ -1,2 +1,1 @@
-# cordova-yutils
-Utils
+# cordova utils
