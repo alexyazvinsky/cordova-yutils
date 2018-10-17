@@ -1,6 +1,6 @@
 {
-  "name": "cordova-yutils",
-  "version": "0.0.1",
+  "name": "dc-cordova-yutils",
+  "version": "1.0.0",
   "description": "",
   "cordova": {
     "id": "cordova-yutils",
