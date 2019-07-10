@@ -14,26 +14,6 @@ NSString * _STATUS_PIN_IS_SHORT = @"3";
 NSString * _STATUS_IS_ALREADY_OPENED = @"4";
 NSString * _STATUS_PIN_IS_VALIDATED = @"5";
 
-- (void)getDeviceName:(CDVInvokedUrlCommand*)command
-{
-    CDVPluginResult* pluginResult = nil;
-
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    
-    NSString* deviceName = [NSString stringWithCString:systemInfo.machine 
-                                     encoding:NSUTF8StringEncoding];
-    
-    if (deviceName != nil && [deviceName length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK 
-                                        messageAsString:deviceName];
-    } else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
 - (void)promptPin:(CDVInvokedUrlCommand *)command
 {
     NSString* title = [command.arguments objectAtIndex:0];

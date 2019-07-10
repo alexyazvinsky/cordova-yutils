@@ -2,8 +2,6 @@
 
 @interface YUtils : CDVPlugin
 
-- (void)getDeviceName:(CDVInvokedUrlCommand*)command;
-
 - (void)promptPin:(CDVInvokedUrlCommand*)command;
 
 - (void)validatePin:(CDVInvokedUrlCommand*)command;

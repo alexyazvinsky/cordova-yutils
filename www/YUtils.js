@@ -1,15 +1,6 @@
 var cordova = window.cordova;
 
 var YUtils = {
-    getDeviceName: function(successCallback, errorCallback) {
-        cordova.exec(
-            successCallback,
-            errorCallback,
-            "YUtils",
-            "getDeviceName",
-            []
-        );
-    },
     promptPin: function(successCallback, errorCallback, title, message, pinLength) {
         cordova.exec(
                     successCallback,

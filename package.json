@@ -1,9 +1,9 @@
 {
-  "name": "dc-cordova-yutils",
+  "name": "cordova-plugin-dcutils",
   "version": "1.0.0",
   "description": "",
   "cordova": {
-    "id": "cordova-yutils",
+    "id": "cordova-plugin-dcutils",
     "platforms": [
       "ios",
       "android"
@@ -18,10 +18,10 @@
       "version": ">=7.0.0"
     }
   ],
-  "author": ")",
+  "author": "Alex Yazvinsky",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/alexyazvinsky/cordova-plugin-dcutils"
   },
-  "homepage": ""
+  "homepage": "https://github.com/alexyazvinsky/cordova-plugin-dcutils"
 }

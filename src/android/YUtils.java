@@ -50,10 +50,6 @@ public class YUtils extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         currentContext = callbackContext;
-        if(action.equals("getDeviceName")) {
-            this.getDeviceName(callbackContext);
-            return true;
-        }
         if(action.equals("promptPin")) {
             this.promptPin(args, callbackContext);
             return true;
@@ -63,15 +59,6 @@ public class YUtils extends CordovaPlugin {
             return true;
         }
         return false;
-    }
-
-    private void getDeviceName(CallbackContext callbackContext) {
-        String deviceName = Build.MODEL;
-        if(deviceName != null && deviceName.length() > 0){
-            callbackContext.success(deviceName);
-        }else{
-            callbackContext.error("No device name");
-        }
     }
 
     private void promptPin(final JSONArray args, final CallbackContext callbackContext) throws JSONException {
