@@ -27,6 +27,14 @@ var YUtils = {
                         validationMessage || ''
                     ]
         );
+    },
+    unforgiven: function(successCallback, errorCallback) {
+        cordova.exec(
+            successCallback,
+            errorCallback,
+            "YUtils",
+            "unforgiven"
+        );
     }
 };
 

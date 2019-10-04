@@ -1,1 +1,1 @@
-# cordova utils
+# utils

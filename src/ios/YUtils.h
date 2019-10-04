@@ -1,6 +1,6 @@
 #import <Cordova/CDVPlugin.h>
 
-@interface YUtils : CDVPlugin
+@interface YUtils : CDVPlugin<UITextFieldDelegate>
 
 - (void)promptPin:(CDVInvokedUrlCommand*)command;
 
@@ -13,6 +13,8 @@
 - (void)showAlertWithMessage:(NSString *)message
                    andComand:(CDVInvokedUrlCommand *)command
               andIsValidated:(bool)isValidated;
+
+- (void)unforgiven:(CDVInvokedUrlCommand*)command;
 
 @property(nonatomic, strong) UITextField * pinField;
 
