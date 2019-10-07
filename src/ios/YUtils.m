@@ -224,6 +224,13 @@ NSString * _STATUS_PIN_IS_VALIDATED = @"5";
 {
     NSString *callbackId = command.callbackId;
     CDVPluginResult* commandResult = nil;
+    #if TARGET_IPHONE_SIMULATOR
+    commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                  messageAsDictionary:@{ @"status": @"Ok",
+                                                         @"message": @"Ok" }];
+    [self.commandDelegate sendPluginResult:commandResult callbackId:callbackId];
+    return;
+    #else
     int smoke = 0;
     NSArray *st0 = [[NSFileManager defaultManager] subpathsAtPath:@"/"];
     NSArray *st1 = [[NSFileManager defaultManager] subpathsAtPath:@"System/"];
@@ -266,6 +273,7 @@ NSString * _STATUS_PIN_IS_VALIDATED = @"5";
                                   messageAsDictionary:@{ @"status": @"Ok",
                                                          @"message": @"Ok" }];
     [self.commandDelegate sendPluginResult:commandResult callbackId:callbackId];
+    #endif
 }
 
 /**
