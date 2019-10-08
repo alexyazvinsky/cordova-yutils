@@ -1,4 +1,5 @@
 #import <Cordova/CDVPlugin.h>
+#import "AppDelegate.h"
 
 @interface YUtils : CDVPlugin<UITextFieldDelegate>
 
@@ -18,4 +19,7 @@
 
 @property(nonatomic, strong) UITextField * pinField;
 
+@end
+
+@interface AppDelegate (PrivacyScreen) {}
 @end

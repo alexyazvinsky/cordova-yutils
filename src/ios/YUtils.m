@@ -304,3 +304,34 @@ NSString * _STATUS_PIN_IS_VALIDATED = @"5";
 }
 
 @end
+
+@implementation AppDelegate (PrivacyScreen)
+
+int VIEW_TAG = 1001;
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    self.window.backgroundColor = [UIColor clearColor];
+    
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    blurEffectView.frame = self.window.bounds;
+    blurEffectView.tag = VIEW_TAG;
+    blurEffectView.alpha = 0;
+    [self.window addSubview:blurEffectView];
+    [self.window bringSubviewToFront:blurEffectView];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        blurEffectView.alpha = 1;
+    }];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    UIView *blurEffectView = [self.window viewWithTag:VIEW_TAG];
+    [UIView animateWithDuration:0.1 animations:^{
+        blurEffectView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [blurEffectView removeFromSuperview];
+    }];
+}
+@end

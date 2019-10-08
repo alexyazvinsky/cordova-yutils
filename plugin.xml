@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-            id="cordova-plugin-dcutils" version="1.2.1">
+            id="cordova-plugin-dcutils" version="1.2.2">
         <name>DC Utils</name>
         <description>Cordova DC Utils</description>
         <license>Apache 2.0</license>
