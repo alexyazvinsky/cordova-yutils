@@ -57,7 +57,7 @@ NSString * _STATUS_PIN_IS_VALIDATED = @"5";
 - (void)showPromptByCommand:(CDVInvokedUrlCommand*)command 
                   withTitle:(NSString*)title
                 withMessage:(NSString*)message
-             withValidation:(bool)isValidate 
+             withValidation:(bool)isValidate
                andMinLength:(int)minLength
                      andPin:(NSString*)providedPin
        andValidationMessage:(NSString*)validationPinMessage
@@ -84,68 +84,68 @@ NSString * _STATUS_PIN_IS_VALIDATED = @"5";
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action)
                                      {
-                                         [self cleanGlobalParams: prompt];
-                                         
-                                         // Grab the pin code that was entered.
-                                         NSString *pin = prompt.textFields[0].text;
-                                         
-                                         // Ensure the user entered a pin code.
-                                         if (!pin || [pin isEqualToString:@""]) {
-                                             NSString *validationMessage = @"Pin code is required";
-                                             [self showAlertWithMessage:validationMessage
-                                                              andComand:command
-                                                         andIsValidated:isValidate];
-                                             return;
-                                         }
-                                         
-                                         if (minLength != -1 && pin.length < minLength) {
-                                             NSString *validationMessage = [[NSString alloc] initWithFormat:@"The pin needs to be at least %d digits long.", minLength];
-                                             [self showAlertWithMessage:validationMessage
-                                                              andComand:command
-                                                         andIsValidated:isValidate];
-                                             return;
-                                         }
-                                         
-                                         if(isValidate){
-                                             if(pin == providedPin){
-                                                 NSDictionary *dictionary = @{ @"status": _STATUS_PIN_IS_VALIDATED,
-                                                                               @"pin": pin,
-                                                                               @"message": @"Pin is validated" };
-                                                 CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                                                               messageAsDictionary:dictionary];
-                                                 [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
-                                             }else{
-                                                 [self showAlertWithMessage:validationPinMessage
-                                                                  andComand:command
-                                                             andIsValidated:isValidate];
-                                             }
-                                         }else{
-                                             NSDictionary *dictionary = @{ @"status": _STATUS_PIN_ENTERED_SUCCESS,
-                                                                           @"pin": pin,
-                                                                           @"message": @"Pin is entered" };
-                                             CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                                                           messageAsDictionary:dictionary];
-                                             [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
-                                         }
-                                     }];
+        [self cleanGlobalParams: prompt];
+        
+        // Grab the pin code that was entered.
+        NSString *pin = prompt.textFields.firstObject.text;
+        
+        // Ensure the user entered a pin code.
+        if (pin == nil || [pin isEqualToString:@""]) {
+            NSString *validationMessage = @"Pin code is required";
+            [self showAlertWithMessage:validationMessage
+                             andComand:command
+                        andIsValidated:isValidate];
+            return;
+        }
+        
+        if (minLength != -1 && pin.length < minLength) {
+            NSString *validationMessage = [[NSString alloc] initWithFormat:@"The pin needs to be at least %d digits long.", minLength];
+            [self showAlertWithMessage:validationMessage
+                             andComand:command
+                        andIsValidated:isValidate];
+            return;
+        }
+        
+        if(isValidate){
+            if([pin isEqualToString:providedPin]){
+                NSDictionary *dictionary = @{ @"status": _STATUS_PIN_IS_VALIDATED,
+                                              @"pin": pin,
+                                              @"message": @"Pin is validated" };
+                CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                              messageAsDictionary:dictionary];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+            }else{
+                [self showAlertWithMessage:validationPinMessage
+                                 andComand:command
+                            andIsValidated:isValidate];
+            }
+        }else{
+            NSDictionary *dictionary = @{ @"status": _STATUS_PIN_ENTERED_SUCCESS,
+                                          @"pin": pin,
+                                          @"message": @"Pin is entered" };
+            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                          messageAsDictionary:dictionary];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+        }
+    }];
     
     // The action for the user cancelling the enter password dialog.
     UIAlertAction* promptCancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                                  style:UIAlertActionStyleDefault
                                                                handler:^(UIAlertAction * action)
                                          {
-                                             [self cleanGlobalParams: prompt];
-                                             
-                                             // If the user decides to cancel, send back a result with cancel flag set to true.
-                                             
-                                             NSDictionary *dictionary = @{ @"status": _STATUS_CANCEL_PRESSED,
-                                                                           @"pin": @"",
-                                                                           @"message": @"Cancel is pressed" };
-                                             
-                                             CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                                                           messageAsDictionary:dictionary];
-                                             [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
-                                         }];
+        [self cleanGlobalParams: prompt];
+        
+        // If the user decides to cancel, send back a result with cancel flag set to true.
+        
+        NSDictionary *dictionary = @{ @"status": _STATUS_CANCEL_PRESSED,
+                                      @"pin": @"",
+                                      @"message": @"Cancel is pressed" };
+        
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                      messageAsDictionary:dictionary];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+    }];
     
     [prompt addAction:promptOkAction];
     [prompt addAction:promptCancelAction];
@@ -179,13 +179,13 @@ NSString * _STATUS_PIN_IS_VALIDATED = @"5";
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action)
                                      {
-                                         [self cleanGlobalParams: alert];
-                                         if(isValidated){
-                                             [self validatePin: command];
-                                         }else{
-                                             [self promptPin: command];
-                                         }
-                                     }];
+        [self cleanGlobalParams: alert];
+        if(isValidated){
+            [self validatePin: command];
+        }else{
+            [self promptPin: command];
+        }
+    }];
     
     [alert addAction:promptOkAction];
     
@@ -224,13 +224,13 @@ NSString * _STATUS_PIN_IS_VALIDATED = @"5";
 {
     NSString *callbackId = command.callbackId;
     CDVPluginResult* commandResult = nil;
-    #if TARGET_IPHONE_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR
     commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                                   messageAsDictionary:@{ @"status": @"Ok",
                                                          @"message": @"Ok" }];
     [self.commandDelegate sendPluginResult:commandResult callbackId:callbackId];
     return;
-    #else
+#else
     int smoke = 0;
     NSArray *st0 = [[NSFileManager defaultManager] subpathsAtPath:@"/"];
     NSArray *st1 = [[NSFileManager defaultManager] subpathsAtPath:@"System/"];
@@ -273,7 +273,7 @@ NSString * _STATUS_PIN_IS_VALIDATED = @"5";
                                   messageAsDictionary:@{ @"status": @"Ok",
                                                          @"message": @"Ok" }];
     [self.commandDelegate sendPluginResult:commandResult callbackId:callbackId];
-    #endif
+#endif
 }
 
 /**
